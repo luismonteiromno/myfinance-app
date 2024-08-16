@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   background: {
@@ -6,28 +6,58 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     justifyContent: 'center', // Centraliza o conteúdo verticalmente
-    alignItems: 'center', // Centraliza o conteúdo horizontalmente
   },
-  formContainer: {
-    width: '40%', // Ajuste a largura do formulário
-    height: '30%', // Ajuste a altura do formulário
-    backgroundColor: 'rgba(255, 255, 255, 0.9)', // Fundo semi-transparente para o formulário
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.4)', // Fundo escuro semitransparente para destacar o formulário
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 20,
     borderRadius: 10,
-    alignItems: 'center', // Centraliza os itens dentro do formulário
+    marginHorizontal: 20,
+  },
+  logoContainer: {
+    marginBottom: 40, // Espaço entre o logo e o formulário
+  },
+  logo: {
+    width: 120,
+    height: 120,
+    resizeMode: 'contain',
+    borderRadius: '0.85rem',
+  },
+  formContainer: {
+    width: '100%',
+    maxWidth: 400, // Largura máxima do formulário
+    backgroundColor: 'white', // Fundo branco para o formulário
+    borderRadius: 10,
+    padding: 20,
+    elevation: 5, // Sombra para dar destaque ao formulário
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
   },
   input: {
-    width: '100%', // Ajuste a largura para preencher o formulário
-    height: 40,
+    width: '100%',
+    height: 45,
     borderColor: '#ccc',
     borderWidth: 1,
-    marginBottom: 10,
+    marginBottom: 15,
     paddingHorizontal: 10,
     borderRadius: 5,
   },
-  label: {
-    fontSize: 24,
-    marginBottom: 20,
+  button: {
+    backgroundColor: '#007bff', // Cor do botão
+    paddingVertical: 12,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

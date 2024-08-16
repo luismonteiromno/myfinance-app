@@ -2,7 +2,6 @@
 import React from 'react';
 import { Text, View, Button } from 'react-native';
 import styles from './styles'; // Importa os estilos
-import logoutScreen from '../logout/logoutScreen';
 
 
 export default function HomeScreen({ navigation }) {
