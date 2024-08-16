@@ -15,7 +15,7 @@ export default function LoginScreen({ navigation }) {
       await AsyncStorage.setItem('isLoggedIn', 'true'); // Armazena o estado de login
       navigation.navigate('Home');
     } else {
-      alert('Invalid credentials');
+      alert('Crendencias Inválidas!');
     }
   };
 
