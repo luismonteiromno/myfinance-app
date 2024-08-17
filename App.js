@@ -1,4 +1,3 @@
-// App.js
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -7,39 +6,54 @@ import LoginScreen from './screens/login/loginScreen.js';
 import HomeScreen from './screens/home/homeScreen.js';
 import FinanceiroScreen from './screens/financeiro/financeiroScreen.js';
 import ReservaScreen from './screens/reservaDeEmergencia/reservaDeEmergenciaScreen.js';
-import LogoutScreen from './screens/logout/logoutScreen.js'; // Importa a tela de logout
+import LogoutScreen from './screens/logout/logoutScreen.js';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(null); // Use null para indicar que o estado está sendo carregado
+  const [initialRoute, setInitialRoute] = useState('Home'); // Defina Login como padrão
 
   useEffect(() => {
-    const checkLoginStatus = async () => {
+    const determineInitialRoute = async () => {
       try {
-        const loggedInStatus = await AsyncStorage.getItem('isLoggedIn');
-        setIsLoggedIn(loggedInStatus === 'true');
+        const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
+        const route = await AsyncStorage.getItem('currentRoute');
+        setInitialRoute(route || (isLoggedIn === 'true' ? 'Home' : 'Login'));
       } catch (error) {
-        console.error('Failed to fetch login status:', error);
-        setIsLoggedIn(false);
+        console.error('Error fetching initial route:', error);
+        setInitialRoute('Login');
       }
     };
 
-    checkLoginStatus();
+    determineInitialRoute();
   }, []);
 
-  if (isLoggedIn === null) {
-    return null; // Renderize uma tela de carregamento se necessário
-  }
+  const handleNavigationChange = async (routeName) => {
+    try {
+      await AsyncStorage.setItem('currentRoute', routeName);
+    } catch (error) {
+      console.error('Error saving current route:', error);
+    }
+  };
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={isLoggedIn ? 'Home' : 'Login'}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Financeiro" component={FinanceiroScreen} />
-        <Stack.Screen name="Reserva de Emergência" component={ReservaScreen} />
-        <Stack.Screen name="Logout" component={LogoutScreen} />
+      <Stack.Navigator initialRouteName={initialRoute}>
+        <Stack.Screen name="Login">
+          {props => <LoginScreen {...props} onNavigationChange={handleNavigationChange} />}
+        </Stack.Screen>
+        <Stack.Screen name="Home">
+          {props => <HomeScreen {...props} onNavigationChange={handleNavigationChange} />}
+        </Stack.Screen>
+        <Stack.Screen name="Financeiro">
+          {props => <FinanceiroScreen {...props} onNavigationChange={handleNavigationChange} />}
+        </Stack.Screen>
+        <Stack.Screen name="Reserva de Emergência">
+          {props => <ReservaScreen {...props} onNavigationChange={handleNavigationChange} />}
+        </Stack.Screen>
+        <Stack.Screen name="Logout">
+          {props => <LogoutScreen {...props} onNavigationChange={handleNavigationChange} />}
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
