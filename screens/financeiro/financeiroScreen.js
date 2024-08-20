@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, TextInput, Button, Picker } from 'react-native';
+import { Text, View, TextInput, Button, Picker, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles';
 
@@ -10,27 +10,29 @@ export default function FinanceiroScreen({ navigation }) {
   const [outrasRendas, setOutrasRendas] = useState('');
   const [despesas, setDespesas] = useState('');
   const [lucroTotal, setLucroTotal] = useState(null);
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth()); // Mês atual como valor inicial
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
+
   const months = [
     'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
   ];
 
-  // Função para carregar os valores armazenados no AsyncStorage
   useEffect(() => {
     const loadValues = async () => {
       try {
-        const storedSalario = await AsyncStorage.getItem('salario');
-        const storedEducacao = await AsyncStorage.getItem('educacao');
-        const storedRendaFixa = await AsyncStorage.getItem('rendaFixa');
-        const storedOutrasRendas = await AsyncStorage.getItem('outrasRendas');
-        const storedDespesas = await AsyncStorage.getItem('despesas');
+        const values = await Promise.all([
+          AsyncStorage.getItem('salario'),
+          AsyncStorage.getItem('educacao'),
+          AsyncStorage.getItem('rendaFixa'),
+          AsyncStorage.getItem('outrasRendas'),
+          AsyncStorage.getItem('despesas')
+        ]);
 
-        if (storedSalario !== null) setSalario(storedSalario);
-        if (storedEducacao !== null) setEducacao(storedEducacao);
-        if (storedRendaFixa !== null) setRendaFixa(storedRendaFixa);
-        if (storedOutrasRendas !== null) setOutrasRendas(storedOutrasRendas);
-        if (storedDespesas !== null) setDespesas(storedDespesas);
+        if (values[0] !== null) setSalario(values[0]);
+        if (values[1] !== null) setEducacao(values[1]);
+        if (values[2] !== null) setRendaFixa(values[2]);
+        if (values[3] !== null) setOutrasRendas(values[3]);
+        if (values[4] !== null) setDespesas(values[4]);
       } catch (error) {
         console.log("Erro ao carregar dados armazenados", error);
       }
@@ -39,15 +41,16 @@ export default function FinanceiroScreen({ navigation }) {
     loadValues();
   }, []);
 
-  // Função para salvar os valores no AsyncStorage
   useEffect(() => {
     const saveValues = async () => {
       try {
-        await AsyncStorage.setItem('salario', salario);
-        await AsyncStorage.setItem('educacao', educacao);
-        await AsyncStorage.setItem('rendaFixa', rendaFixa);
-        await AsyncStorage.setItem('outrasRendas', outrasRendas);
-        await AsyncStorage.setItem('despesas', despesas);
+        await Promise.all([
+          AsyncStorage.setItem('salario', salario),
+          AsyncStorage.setItem('educacao', educacao),
+          AsyncStorage.setItem('rendaFixa', rendaFixa),
+          AsyncStorage.setItem('outrasRendas', outrasRendas),
+          AsyncStorage.setItem('despesas', despesas)
+        ]);
       } catch (error) {
         console.log("Erro ao salvar dados", error);
       }
@@ -56,18 +59,25 @@ export default function FinanceiroScreen({ navigation }) {
     saveValues();
   }, [salario, educacao, rendaFixa, outrasRendas, despesas]);
 
-  const calcularReceita = () => {
+  const calcularReceita = async () => {
     const salarioNum = parseFloat(salario) || 0;
     const educacaoNum = parseFloat(educacao) || 0;
     const rendaFixaNum = parseFloat(rendaFixa) || 0;
     const outrasRendasNum = parseFloat(outrasRendas) || 0;
     const despesasNum = parseFloat(despesas) || 0;
-    const lucrosTotal = ((salarioNum + rendaFixaNum + outrasRendasNum) - educacaoNum) - despesasNum;
+    const lucrosTotal = (salarioNum + rendaFixaNum + outrasRendasNum) - (educacaoNum + despesasNum);
+    
     setLucroTotal(lucrosTotal);
+  
+    try {
+      await AsyncStorage.setItem('lucroTotal', lucrosTotal.toString());
+    } catch (error) {
+      console.log("Erro ao salvar lucro total:", error);
+    }
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Financeiro</Text>
       <Text style={styles.description}>Gerencie suas finanças para o mês de:</Text>
       
@@ -94,7 +104,7 @@ export default function FinanceiroScreen({ navigation }) {
       <TextInput
         style={styles.input}
         keyboardType="numeric"
-        placeholder="Insira os gastos com educação (Transporte, material etc.)"
+        placeholder="Insira os gastos com educação"
         value={educacao}
         onChangeText={setEducacao}
       />
@@ -103,7 +113,7 @@ export default function FinanceiroScreen({ navigation }) {
       <TextInput
         style={styles.input}
         keyboardType="numeric"
-        placeholder="Insira a renda fixa (se houver)"
+        placeholder="Insira a renda fixa"
         value={rendaFixa}
         onChangeText={setRendaFixa}
       />
@@ -129,17 +139,28 @@ export default function FinanceiroScreen({ navigation }) {
       <Button
         title="Calcular Receita Total"
         onPress={calcularReceita}
+        color="#007bff"
       />
 
       {lucroTotal !== null && (
         <Text style={styles.result}>Receita Total para {months[selectedMonth]}: R$ {lucroTotal.toFixed(2)}</Text>
       )}
 
-      <Button
-        title="Voltar para Home"
-        onPress={() => navigation.navigate('Home')}
-        style={styles.backButton}
-      />
-    </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Ver Carteira"
+          onPress={() => navigation.navigate('Carteira', { saldoTotal: lucroTotal, lucroTotal })}
+          color="#28a745"
+        />
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Voltar para Home"
+          onPress={() => navigation.navigate('Home')}
+          color="#6c757d"
+        />
+      </View>
+    </ScrollView>
   );
 }

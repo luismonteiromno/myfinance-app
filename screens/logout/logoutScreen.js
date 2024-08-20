@@ -1,4 +1,3 @@
-// screens/logout/LogoutScreen.js
 import React from 'react';
 import { View, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';

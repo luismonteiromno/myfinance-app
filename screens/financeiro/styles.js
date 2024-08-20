@@ -1,8 +1,8 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: '#f8f8f8',
     alignItems: 'center',
     justifyContent: 'center',
@@ -12,36 +12,45 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: '#333',
   },
   description: {
     fontSize: 16,
-    marginBottom: 30,
+    marginBottom: 20,
     textAlign: 'center',
+    color: '#555',
   },
   label: {
     fontSize: 18,
     marginVertical: 8,
+    color: '#555',
   },
   input: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: '#ccc',
     borderWidth: 1,
     marginBottom: 12,
     paddingHorizontal: 10,
+    borderRadius: 5,
+    width: '100%',
+  },
+  picker: {
+    height: 50,
+    width: '100%',
+    marginBottom: 20,
+    borderColor: '#ccc',
+    borderWidth: 1,
     borderRadius: 5,
   },
   result: {
     fontSize: 20,
     marginVertical: 15,
-    color: 'green',
+    color: '#28a745',
+    textAlign: 'center',
   },
-  backButton: {
-    marginTop: 20,
-  },
-  picker: {
-    height: 50,
+  buttonContainer: {
+    marginVertical: 10,
     width: '100%',
-    marginVertical: 15,
   },
 });
 
