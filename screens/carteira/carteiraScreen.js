@@ -5,7 +5,7 @@ import styles from './styles';
 
 export default function CarteiraScreen({ navigation }) {
   const [saldoTotal, setSaldoTotal] = useState(0);
-
+  
   useEffect(() => {
     const fetchLucroTotal = async () => {
       try {
