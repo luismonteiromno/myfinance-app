@@ -1,69 +1,42 @@
-// screens/home/styles.js
 import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
+export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  navbar: {
+    backgroundColor: '#f8f8f8',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    justifyContent: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  navbarTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  navbarButton: {
+    padding: 10,
+  },
+  navbarButtonText: {
+    color: 'red',
+    fontSize: 16,
+  },
+  content: {
     padding: 20,
   },
   welcomeText: {
-    fontSize: 32,
+    fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   description: {
-    fontSize: 18,
-    marginBottom: 30,
-    textAlign: 'center',
-  },
-  spacer: {
-    marginVertical: 10,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalView: {
-    width: 300,
-    backgroundColor: 'white',
-    borderRadius: 10,
-    padding: 20,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-    fontSize: 18,
-  },
-  modalButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  modalButton: {
-    marginHorizontal: 10,
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: 'green',
-  },
-  modalButtonText: {
-    color: 'white',
     fontSize: 16,
-    textAlign: 'center',
-    fontWeight: 'bold',
+    color: '#666',
+    marginBottom: 20,
   },
 });
-
-export default styles;

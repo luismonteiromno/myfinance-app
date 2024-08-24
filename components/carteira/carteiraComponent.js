@@ -5,25 +5,27 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles';
 
 const Carteira = () => {
-  const [saldo, setSaldo] = useState(0);
-
+  const [saldoTotal, setSaldoTotal] = useState(0);
+  
   useEffect(() => {
-    const fetchSaldo = async () => {
+    const fetchLucroTotal = async () => {
       try {
-        const saldoAtual = await AsyncStorage.getItem('lucroTotal');
-        setSaldo(saldoAtual ? parseFloat(saldoAtual) : 0);
+        const storedLucroTotal = await AsyncStorage.getItem('lucroTotal');
+        if (storedLucroTotal !== null) {
+          setSaldoTotal(parseFloat(storedLucroTotal));
+        }
       } catch (error) {
-        console.error('Erro ao buscar saldo:', error);
+        console.log('Erro ao buscar o saldo total:', error);
       }
     };
 
-    fetchSaldo();
+    fetchLucroTotal();
   }, []);
 
   return (
     <View style={styles.carteiraContainer}>
       <Text style={styles.saldoText}>Seu saldo em Carteira:</Text>
-      <Text style={styles.saldoValor}>{`R$ ${saldo.toFixed(2)}`}</Text>
+      <Text style={styles.saldoValor}>{`R$ ${saldoTotal.toFixed(2)}`}</Text>
     </View>
   );
 };

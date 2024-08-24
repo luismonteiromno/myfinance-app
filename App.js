@@ -40,22 +40,40 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={initialRoute}>
-        <Stack.Screen name="Login">
+        <Stack.Screen 
+          name="Login" 
+          options={{ headerShown: false}}
+        >
           {props => <LoginScreen {...props} onNavigationChange={handleNavigationChange} />}
         </Stack.Screen>
-        <Stack.Screen name="Carteira">
+        <Stack.Screen 
+          name="Carteira" 
+          options={{ headerShown: false}}
+        >
           {props => <CarteiraScreen {...props} onNavigationChange={handleNavigationChange} />}
         </Stack.Screen>
-        <Stack.Screen name="Home">
+        <Stack.Screen 
+          name="Home" 
+          options={{ headerShown: false}}
+        >
           {props => <HomeScreen {...props} onNavigationChange={handleNavigationChange} />}
         </Stack.Screen>
-        <Stack.Screen name="Financeiro">
+        <Stack.Screen 
+          name="Financeiro" 
+          options={{ headerShown: false}
+        }>
           {props => <FinanceiroScreen {...props} onNavigationChange={handleNavigationChange} />}
         </Stack.Screen>
-        <Stack.Screen name="Reserva de Emergência">
+        <Stack.Screen 
+          name="Reserva de Emergência" 
+          options={{ headerShown: false}
+        }>
           {props => <ReservaScreen {...props} onNavigationChange={handleNavigationChange} />}
         </Stack.Screen>
-        <Stack.Screen name="Logout">
+        <Stack.Screen 
+          name="Logout" 
+          options={{ headerShown: false}
+        }>
           {props => <LogoutScreen {...props} onNavigationChange={handleNavigationChange} />}
         </Stack.Screen>
       </Stack.Navigator>
