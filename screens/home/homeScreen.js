@@ -29,8 +29,6 @@ export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Navbar onLogout={handleLogout} />
-
-      {/* Conteúdo da página */}
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.welcomeText}>Bem-vindo ao app MyFinance!</Text>
         <Text style={styles.description}>Controle seus gastos e ganhos!</Text>
@@ -63,22 +61,6 @@ export default function HomeScreen({ navigation }) {
           onConfirm={confirmLogout}
           onCancel={() => setModalVisible(false)}
         /> 
-
-        {/* <View style={styles.buttonContainer}>
-          <Button
-            title="Acessar Reserva de Emergência"
-            onPress={() => navigation.navigate('Reserva de Emergência')}
-            color="#dc3545"
-          />
-        </View> */}
-
-        {/* <View style={styles.buttonContainer}>
-          <Button
-            title="Acessar Carteira"
-            onPress={() => navigation.navigate('Carteira')}
-            color="#28a745"
-          />
-        </View> */}
       </ScrollView>
     </View>
   );
