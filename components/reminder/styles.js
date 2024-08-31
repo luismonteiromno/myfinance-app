@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     height: 40,
-    borderColor: '#ddd',
+    borderColor: '#9F2B68',
     borderWidth: 1,
     borderRadius: 20,
     paddingHorizontal: 15,
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   addButton: {
     marginLeft: 10,
-    backgroundColor: '#4caf50',
+    backgroundColor: '#9F2B68',
     borderRadius: 20,
     padding: 10,
   },

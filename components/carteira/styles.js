@@ -18,6 +18,27 @@ styles = StyleSheet.create({
   spacer: {
     height: 10,
   },
+  expenseContainer: {
+    backgroundColor: '#3E2D5D',
+    borderRadius: 10,
+    padding: 20,
+    marginBottom: 20,
+  },
+  expenseLabel: {
+    fontSize: 20,
+    color: '#ffffff',
+    marginTop: 10,
+  },
+  expenseValue: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#FFB6C1',
+    marginBottom: 10,
+  },
+  expenseLimit: {
+    fontSize: 16,
+    color: '#FFB6C1',
+  },
   modalContainer: {
     flex: 1,
     justifyContent: 'center',

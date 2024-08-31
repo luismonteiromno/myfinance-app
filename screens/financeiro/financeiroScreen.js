@@ -10,6 +10,7 @@ export default function FinanceiroScreen({ navigation }) {
   const [outrasRendas, setOutrasRendas] = useState('');
   const [despesas, setDespesas] = useState('');
   const [lucroTotal, setLucroTotal] = useState(null);
+  const [despesasTotal, setDespesasTotal] = useState(0);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
 
   const months = [
@@ -65,14 +66,17 @@ export default function FinanceiroScreen({ navigation }) {
     const rendaFixaNum = parseFloat(rendaFixa) || 0;
     const outrasRendasNum = parseFloat(outrasRendas) || 0;
     const despesasNum = parseFloat(despesas) || 0;
-    const lucrosTotal = (salarioNum + rendaFixaNum + outrasRendasNum) - (educacaoNum + despesasNum);
-    
+    const despesasTotal = educacaoNum + despesasNum;
+    const lucrosTotal = (salarioNum + rendaFixaNum + outrasRendasNum) - despesasTotal;
+
     setLucroTotal(lucrosTotal);
-  
+    setDespesasTotal(despesasTotal);
+
     try {
       await AsyncStorage.setItem('lucroTotal', lucrosTotal.toString());
+      await AsyncStorage.setItem('despesasTotal', despesasTotal.toString());
     } catch (error) {
-      console.log("Erro ao salvar lucro total:", error);
+      console.log("Erro ao salvar", error);
     }
   };
 
@@ -149,7 +153,7 @@ export default function FinanceiroScreen({ navigation }) {
       <View style={styles.buttonContainer}>
         <Button
           title="Ver Carteira"
-          onPress={() => navigation.navigate('Carteira', { saldoTotal: lucroTotal, lucroTotal })}
+          onPress={() => navigation.navigate('Carteira', { saldoTotal: lucroTotal, totalDespesas: despesasTotal })}
           color="#28a745"
         />
       </View>

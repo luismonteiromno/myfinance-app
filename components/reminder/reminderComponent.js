@@ -63,7 +63,7 @@ const Reminders = () => {
     <View style={styles.reminderItem}>
       <Text style={styles.reminderText}>{item}</Text>
       <TouchableOpacity onPress={() => removeReminder(selectedDate, index)}>
-        <MaterialIcons name="delete" size={24} color="#f44336" />
+        <MaterialIcons name="delete" size={24} color="#3E2D5D" backgroundColor="#3E2D5D" />
       </TouchableOpacity>
     </View>
   );
@@ -74,16 +74,16 @@ const Reminders = () => {
       <Calendar
         onDayPress={(day) => setSelectedDate(day.dateString)}
         markedDates={{
-          [selectedDate]: { selected: true, selectedColor: '#4caf50' },
+          [selectedDate]: { selected: true, selectedColor: '#3E2D5D' },
           ...Object.keys(reminders).reduce((acc, date) => {
-            acc[date] = { marked: true, dotColor: '#4caf50' };
+            acc[date] = { marked: true, dotColor: '#3E2D5D' };
             return acc;
           }, {}),
         }}
         theme={{
-          selectedDayBackgroundColor: '#4caf50',
-          todayTextColor: '#4caf50',
-          arrowColor: '#4caf50',
+          selectedDayBackgroundColor: '#3E2D5D',
+          todayTextColor: '#3E2D5D',
+          arrowColor: '#3E2D5D',
         }}
         style={styles.calendar}
       />
@@ -95,7 +95,7 @@ const Reminders = () => {
           onChangeText={setReminderText}
         />
         <TouchableOpacity style={styles.addButton} onPress={addReminder}>
-          <MaterialIcons name="add" size={24} color="#fff" />
+          <MaterialIcons name="add" size={24} color="##3E2D5D" />
         </TouchableOpacity>
       </View>
       {selectedDate && reminders[selectedDate] && (

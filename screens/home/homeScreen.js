@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
+import { Entypo, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons/';
 import { Text, View, ScrollView, Modal, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Carteira from '../../components/carteira/carteiraComponent';
 import Navbar from '../../components/navBar/navBarComponent';
-import BalanceCard from '../../components/balanceCard/balanceCardComponent';
 import Reminders from '../../components/reminder/reminderComponent';
 import LogoutModal from '../../components/logoutModal/logoutModalComponent';
 import styles from './styles';
-import { Button } from 'react-native-web';
 
 export default function HomeScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -30,37 +29,53 @@ export default function HomeScreen({ navigation }) {
     <View style={styles.container}>
       <Navbar onLogout={handleLogout} />
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.welcomeText}>Bem-vindo ao app MyFinance!</Text>
-        <Text style={styles.description}>Controle seus gastos e ganhos!</Text>
-        <Carteira />
-        <View style={styles.description}/>
-        <View style={styles.description}>
-          <Button 
-            title="Ir para a carteira" 
-            onPress={() => navigation.navigate('Carteira')} 
-            color="#28a745"
-          />
+        
+        <View style={styles.expenseContainer}>
+          <Text style={styles.welcomeText}>Bem-vindo ao app MyFinance!</Text>
+          <Text style={styles.description}>Controle seus gastos e ganhos!</Text>
+          <Carteira/>
         </View>
-        <View style={styles.description}>
-          <Button 
-            title="Acessar Reserva de Emergência" 
-            onPress={() => navigation.navigate('Reserva de Emergência')} 
-            color="#dc3545"
-          />
+
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity 
+            style={[styles.button, styles.walletButton]}
+            onPress={() => navigation.navigate('Carteira')}
+          >
+            <View style={styles.buttonContent}>
+              <Text style={styles.buttonText}>Ir para a carteira</Text>
+              <Entypo name="wallet" size={24} color="black" style={styles.icon}/>
+            </View>
+          </TouchableOpacity>
+          
+          <TouchableOpacity 
+            style={[styles.button, styles.emergencyButton]}
+            onPress={() => navigation.navigate('Reserva de Emergência')}
+          >
+            <View style={styles.buttonContent}>
+              <Text style={styles.buttonText}>Acessar Reserva de Emergência</Text>
+              <MaterialIcons name='emergency' size={24} color={'black'} style={styles.icon}/>
+            </View>
+          </TouchableOpacity>
+          
+          <TouchableOpacity 
+            style={[styles.button, styles.financialButton]}
+            onPress={() => navigation.navigate('Financeiro')}
+          >
+            <View style={styles.buttonContent}>
+              <Text style={styles.buttonText}>Financeiro</Text>
+              <MaterialCommunityIcons name='finance' size={24} color={'black'} style={styles.icon}/>
+            </View>
+          </TouchableOpacity>
         </View>
-        <View style={styles.description}>
-          <Button 
-            title="Financeiro" 
-            onPress={() => navigation.navigate('Financeiro')} 
-            color="#007bff"
-          />
-        </View>
+
         <Reminders />
+        
         <LogoutModal 
           visible={modalVisible}
           onConfirm={confirmLogout}
           onCancel={() => setModalVisible(false)}
         /> 
+
       </ScrollView>
     </View>
   );
