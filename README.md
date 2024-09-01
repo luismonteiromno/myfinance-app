@@ -1,3 +1,4 @@
 # Para rodar execute
-### yarn install
-### yarn start
+`yarn install / npm install`
+
+`yarn start / npm start`
