@@ -1,10 +1,16 @@
 import { StyleSheet } from 'react-native';
+import Svg, { ClipPath } from 'react-native-svg';
 
 const styles = StyleSheet.create({
   navbar: {
     height: 60,
-    backgroundColor: '#3E2D5D',
-    borderRadius: '12px',
+    backgroundColor: 'rgba(23, 21, 59, 1)',
+    borderLeftWidth:'1px',
+    borderEndWidth:'1px',
+    borderBottomWidth:'1px',
+    borderEndEndRadius:'1rem',
+    borderEndStartRadius:'1rem',
+    borderColor:'rgba(200, 172, 214, 1)',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
@@ -22,4 +28,9 @@ const styles = StyleSheet.create({
   },
 });
 
+const SVGComponet = (prompt) =>(
+  <Svg
+  
+  />
+)
 export default styles;

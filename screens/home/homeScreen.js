@@ -33,6 +33,8 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.expenseContainer}>
           <Text style={styles.welcomeText}>Bem-vindo ao app MyFinance!</Text>
           <Text style={styles.description}>Controle seus gastos e ganhos!</Text>
+        </View>
+        <View style={styles.expenseContainerC}>
           <Carteira/>
         </View>
 

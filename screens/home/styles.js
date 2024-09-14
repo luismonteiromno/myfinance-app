@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#2C1A3C', // Fundo roxo
+    backgroundColor: 'rgba(46, 35, 108, 1)', // Fundo roxo
   },
   content: {
     padding: 20,
@@ -35,12 +35,22 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   expenseContainer: {
-    backgroundColor: '#3E2D5D',
-    borderRadius: 10,
+
     padding: 20,
     marginBottom: 4,
     width: '100%',
     maxWidth: 600, // Limita a largura no web
+    borderBottomWidth:'0.1rem',
+    borderBottomColor:'rgba(200, 172, 214, 1)',
+  },
+  expenseContainerC: {
+  
+    padding: 20,
+    marginBottom: 4,
+    width: '100%',
+    maxWidth: 600, // Limita a largura no web
+    borderBottomWidth:'0.1rem',
+    borderBottomColor:'rgba(200, 172, 214, 1)',
   },
   expenseLabel: {
     fontSize: 20,
