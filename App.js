@@ -3,7 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoginScreen from './screens/login/loginScreen.js';
-import CarteiraScreen from './screens/carteira/carteiraScreen.js';
 import HomeScreen from './screens/home/homeScreen.js';
 import FinanceiroScreen from './screens/financeiro/financeiroScreen.js';
 import ReservaScreen from './screens/reservaDeEmergencia/reservaDeEmergenciaScreen.js';
@@ -45,12 +44,6 @@ export default function App() {
           options={{ headerShown: false}}
         >
           {props => <LoginScreen {...props} onNavigationChange={handleNavigationChange} />}
-        </Stack.Screen>
-        <Stack.Screen 
-          name="Carteira" 
-          options={{ headerShown: false}}
-        >
-          {props => <CarteiraScreen {...props} onNavigationChange={handleNavigationChange} />}
         </Stack.Screen>
         <Stack.Screen 
           name="Home" 

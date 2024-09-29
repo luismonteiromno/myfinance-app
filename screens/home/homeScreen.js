@@ -38,16 +38,6 @@ export default function HomeScreen({ navigation }) {
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity 
-            style={[styles.button, styles.walletButton]}
-            onPress={() => navigation.navigate('Carteira')}
-          >
-            <View style={styles.buttonContent}>
-              <Text style={styles.buttonText}>Ir para a carteira</Text>
-              <Entypo name="wallet" size={24} color="black" style={styles.icon}/>
-            </View>
-          </TouchableOpacity>
-          
-          <TouchableOpacity 
             style={[styles.button, styles.emergencyButton]}
             onPress={() => navigation.navigate('Reserva de Emergência')}
           >
