@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, TextInput, Button, Picker, ScrollView } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles';
 
@@ -11,12 +11,7 @@ export default function FinanceiroScreen({ navigation }) {
   const [despesas, setDespesas] = useState('');
   const [lucroTotal, setLucroTotal] = useState(null);
   const [despesasTotal, setDespesasTotal] = useState(0);
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
-
-  const months = [
-    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-  ];
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const loadValues = async () => {
@@ -26,7 +21,7 @@ export default function FinanceiroScreen({ navigation }) {
           AsyncStorage.getItem('educacao'),
           AsyncStorage.getItem('rendaFixa'),
           AsyncStorage.getItem('outrasRendas'),
-          AsyncStorage.getItem('despesas')
+          AsyncStorage.getItem('despesas'),
         ]);
 
         if (values[0] !== null) setSalario(values[0]);
@@ -42,30 +37,20 @@ export default function FinanceiroScreen({ navigation }) {
     loadValues();
   }, []);
 
-  useEffect(() => {
-    const saveValues = async () => {
-      try {
-        await Promise.all([
-          AsyncStorage.setItem('salario', salario),
-          AsyncStorage.setItem('educacao', educacao),
-          AsyncStorage.setItem('rendaFixa', rendaFixa),
-          AsyncStorage.setItem('outrasRendas', outrasRendas),
-          AsyncStorage.setItem('despesas', despesas)
-        ]);
-      } catch (error) {
-        console.log("Erro ao salvar dados", error);
-      }
-    };
-
-    saveValues();
-  }, [salario, educacao, rendaFixa, outrasRendas, despesas]);
-
   const calcularReceita = async () => {
+    if (!salario || !educacao || !rendaFixa || !outrasRendas || !despesas) {
+      setErrorMessage('Por favor, preencha todos os campos.');
+      return;
+    }
+
+    setErrorMessage(''); // Limpa a mensagem de erro se tudo estiver preenchido
+
     const salarioNum = parseFloat(salario) || 0;
     const educacaoNum = parseFloat(educacao) || 0;
     const rendaFixaNum = parseFloat(rendaFixa) || 0;
     const outrasRendasNum = parseFloat(outrasRendas) || 0;
     const despesasNum = parseFloat(despesas) || 0;
+
     const despesasTotal = educacaoNum + despesasNum;
     const lucrosTotal = (salarioNum + rendaFixaNum + outrasRendasNum) - despesasTotal;
 
@@ -80,20 +65,14 @@ export default function FinanceiroScreen({ navigation }) {
     }
   };
 
+  const handleChange = async (setter, key, value) => {
+    setter(value);
+    await AsyncStorage.setItem(key, value);
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Financeiro</Text>
-      <Text style={styles.description}>Gerencie suas finanças para o mês de:</Text>
-      
-      <Picker
-        selectedValue={selectedMonth}
-        style={styles.picker}
-        onValueChange={(itemValue) => setSelectedMonth(itemValue)}
-      >
-        {months.map((month, index) => (
-          <Picker.Item key={index} label={month} value={index} />
-        ))}
-      </Picker>
 
       <Text style={styles.label}>Salário:</Text>
       <TextInput
@@ -101,25 +80,25 @@ export default function FinanceiroScreen({ navigation }) {
         keyboardType="numeric"
         placeholder="Seu salário"
         value={salario}
-        onChangeText={setSalario}
+        onChangeText={(value) => handleChange(setSalario, 'salario', value)}
       />
 
-      <Text style={styles.label}>Educação:</Text>
+      <Text style={styles.label}>Gastos com Educação:</Text>
       <TextInput
         style={styles.input}
         keyboardType="numeric"
         placeholder="Insira os gastos com educação"
         value={educacao}
-        onChangeText={setEducacao}
+        onChangeText={(value) => handleChange(setEducacao, 'educacao', value)}
       />
 
-      <Text style={styles.label}>Renda Fixa:</Text>
+      <Text style={styles.label}>Ganhos de Renda Fixa:</Text>
       <TextInput
         style={styles.input}
         keyboardType="numeric"
         placeholder="Insira a renda fixa"
         value={rendaFixa}
-        onChangeText={setRendaFixa}
+        onChangeText={(value) => handleChange(setRendaFixa, 'rendaFixa', value)}
       />
 
       <Text style={styles.label}>Outras Rendas:</Text>
@@ -128,7 +107,7 @@ export default function FinanceiroScreen({ navigation }) {
         keyboardType="numeric"
         placeholder="Insira outras rendas"
         value={outrasRendas}
-        onChangeText={setOutrasRendas}
+        onChangeText={(value) => handleChange(setOutrasRendas, 'outrasRendas', value)}
       />
 
       <Text style={styles.label}>Despesas:</Text>
@@ -137,33 +116,31 @@ export default function FinanceiroScreen({ navigation }) {
         keyboardType="numeric"
         placeholder="Insira as despesas"
         value={despesas}
-        onChangeText={setDespesas}
+        onChangeText={(value) => handleChange(setDespesas, 'despesas', value)}
       />
 
-      <Button
-        title="Calcular Receita Total"
+      {errorMessage !== '' && (
+        <Text style={styles.errorText}>{errorMessage}</Text>
+      )}
+
+      <TouchableOpacity
         onPress={calcularReceita}
-        color="#007bff"
-      />
+        style={styles.buttonCalculate}
+      >
+        <Text style={styles.buttonText}>Calcular Receita</Text>
+      </TouchableOpacity>
 
       {lucroTotal !== null && (
-        <Text style={styles.result}>Receita Total para {months[selectedMonth]}: R$ {lucroTotal.toFixed(2)}</Text>
+        <Text style={styles.result}>Receita Total: R$ {lucroTotal.toFixed(2)}</Text>
       )}
 
       <View style={styles.buttonContainer}>
-        <Button
-          title="Ver Carteira"
-          onPress={() => navigation.navigate('Carteira', { saldoTotal: lucroTotal, totalDespesas: despesasTotal })}
-          color="#28a745"
-        />
-      </View>
-
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Voltar para Home"
+        <TouchableOpacity
           onPress={() => navigation.navigate('Home')}
-          color="#6c757d"
-        />
+          style={styles.buttonHome}
+        >
+          <Text style={styles.buttonText}>Voltar para Home</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );

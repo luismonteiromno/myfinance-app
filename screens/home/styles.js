@@ -69,9 +69,6 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center', // Alinha o texto e o ícone no centro
   },
-  walletButton: {
-    backgroundColor: '#702963',
-  },
   emergencyButton: {
     backgroundColor: '#9F2B68',
   },
