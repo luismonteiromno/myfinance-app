@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     marginVertical: 10,
-    width: '60%', // Largura mais responsiva
+    width: '100%', // Largura responsiva
     alignSelf: 'center',
   },
   buttonHome: {

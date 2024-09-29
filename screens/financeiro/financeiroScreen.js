@@ -123,12 +123,14 @@ export default function FinanceiroScreen({ navigation }) {
         <Text style={styles.errorText}>{errorMessage}</Text>
       )}
 
-      <TouchableOpacity
-        onPress={calcularReceita}
-        style={styles.buttonCalculate}
-      >
-        <Text style={styles.buttonText}>Calcular Receita</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          onPress={calcularReceita}
+          style={styles.buttonCalculate}
+        >
+          <Text style={styles.buttonText}>Calcular Receita</Text>
+        </TouchableOpacity>
+      </View>
 
       {lucroTotal !== null && (
         <Text style={styles.result}>Receita Total: R$ {lucroTotal.toFixed(2)}</Text>
