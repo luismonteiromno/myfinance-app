@@ -6,8 +6,8 @@
 O Projeto  MyFinance consiste em um APP de  carteira virtual com o objetivo de facilitar a vida daqueles
 que ainda utilizam papel e caneta, calculadora, planilha, etc e etc...
 Para isso este aplicativo foi programado com uma interface intuitiva com telas de
+- Login,
 - Home,
-- Carteira,
 - Financeiro
 - Reserva de emergencia
 ```
