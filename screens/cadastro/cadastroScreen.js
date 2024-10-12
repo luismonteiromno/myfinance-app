@@ -34,7 +34,7 @@ export default function RegisterScreen({ navigation }) {
     <View style={styles.overlay}>
         <View style={styles.logoContainer}>
           <Image source={logo} style={styles.logo} />
-          <Text style={styles.appName}>MeuApp</Text>
+          <Text style={styles.appName}>MyFinance</Text>
         </View>
         
         <View style={styles.formContainer}>
