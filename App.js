@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import CadastroScreen from './screens/cadastro/cadastroScreen.js';
 import LoginScreen from './screens/login/loginScreen.js';
 import HomeScreen from './screens/home/homeScreen.js';
 import FinanceiroScreen from './screens/financeiro/financeiroScreen.js';
@@ -11,13 +12,14 @@ import LogoutScreen from './screens/logout/logoutScreen.js';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [initialRoute, setInitialRoute] = useState('Home'); // Defina Login como padrão
+  const [initialRoute, setInitialRoute] = useState(null); // Começa com null para esperar o carregamento
 
   useEffect(() => {
     const determineInitialRoute = async () => {
       try {
         const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
         const route = await AsyncStorage.getItem('currentRoute');
+        // Define a rota inicial com base nos valores recuperados
         setInitialRoute(route || (isLoggedIn === 'true' ? 'Home' : 'Login'));
       } catch (error) {
         console.error('Error fetching initial route:', error);
@@ -36,39 +38,49 @@ export default function App() {
     }
   };
 
+  // Renderiza apenas quando `initialRoute` não for nulo
+  if (!initialRoute) return null;
+
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      onStateChange={(state) => {
+        const currentRoute = state?.routes[state.index]?.name;
+        if (currentRoute) {
+          handleNavigationChange(currentRoute);
+        }
+      }}
+    >
       <Stack.Navigator initialRouteName={initialRoute}>
         <Stack.Screen 
           name="Login" 
-          options={{ headerShown: false}}
-        >
-          {props => <LoginScreen {...props} onNavigationChange={handleNavigationChange} />}
-        </Stack.Screen>
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="Cadastro" 
+          component={CadastroScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen 
           name="Home" 
-          options={{ headerShown: false}}
-        >
-          {props => <HomeScreen {...props} onNavigationChange={handleNavigationChange} />}
-        </Stack.Screen>
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen 
           name="Financeiro" 
-          options={{ headerShown: false}
-        }>
-          {props => <FinanceiroScreen {...props} onNavigationChange={handleNavigationChange} />}
-        </Stack.Screen>
+          component={FinanceiroScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen 
           name="Reserva de Emergência" 
-          options={{ headerShown: false}
-        }>
-          {props => <ReservaScreen {...props} onNavigationChange={handleNavigationChange} />}
-        </Stack.Screen>
+          component={ReservaScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen 
           name="Logout" 
-          options={{ headerShown: false}
-        }>
-          {props => <LogoutScreen {...props} onNavigationChange={handleNavigationChange} />}
-        </Stack.Screen>
+          component={LogoutScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

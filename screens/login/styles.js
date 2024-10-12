@@ -5,59 +5,79 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
-    justifyContent: 'center', // Centraliza o conteúdo verticalmente
+    justifyContent: 'center',
   },
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)', // Fundo escuro semitransparente para destacar o formulário
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
     padding: 20,
-    borderRadius: 10,
-    marginHorizontal: 20,
   },
   logoContainer: {
-    marginBottom: 40, // Espaço entre o logo e o formulário
+    marginBottom: 30, // Espaço entre o logo e o formulário ajustado
   },
   logo: {
     width: 120,
     height: 120,
     resizeMode: 'contain',
-    borderRadius: '0.85rem',
+    borderRadius: 10, // Deixando o logo levemente arredondado
   },
   formContainer: {
     width: '100%',
-    maxWidth: 400, // Largura máxima do formulário
-    backgroundColor: 'white', // Fundo branco para o formulário
-    borderRadius: 10,
-    padding: 20,
-    elevation: 5, // Sombra para dar destaque ao formulário
+    maxWidth: 380,
+    backgroundColor: '#FFFFFF', // Fundo branco puro para um contraste limpo
+    borderRadius: 12,
+    padding: 25,
+    elevation: 10, // Sombra mais destacada para dar sensação de elevação
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
   },
   title: {
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
+    color: '#333', // Cor do título para um melhor contraste
   },
   input: {
     width: '100%',
-    height: 45,
-    borderColor: '#ccc',
+    height: 50,
+    borderColor: '#ddd',
     borderWidth: 1,
     marginBottom: 15,
-    paddingHorizontal: 10,
-    borderRadius: 5,
+    paddingHorizontal: 15,
+    borderRadius: 8,
+    backgroundColor: '#f9f9f9', // Fundo levemente cinza para os inputs
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
   },
   button: {
-    backgroundColor: '#007bff', // Cor do botão
-    paddingVertical: 12,
-    borderRadius: 5,
+    backgroundColor: '#3498db', // Azul mais vibrante para o botão
+    paddingVertical: 14,
+    borderRadius: 8,
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    marginTop: 10,
   },
   buttonText: {
-    color: 'white',
+    color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '600',
+  },
+  linkText: {
+    color: '#3498db', // Mantendo a cor azul para o link
+    textAlign: 'center',
+    marginTop: 15,
+    fontSize: 14,
   },
 });
 
