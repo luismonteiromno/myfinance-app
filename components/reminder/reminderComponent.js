@@ -6,16 +6,35 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MaterialIcons } from '@expo/vector-icons';
 
 const Reminders = () => {
-  const [selectedDate, setSelectedDate] = useState('');
+  const currentDate = new Date().toISOString().split('T')[0];
+  const [selectedDate, setSelectedDate] = useState(currentDate);
   const [reminderText, setReminderText] = useState('');
   const [reminders, setReminders] = useState({});
+
+  const [markedDates, setMarkedDates] = useState({
+    [currentDate]: {
+      selected: true,
+      selectedColor: '#3E2D5D',
+    },
+  });
 
   useEffect(() => {
     const loadReminders = async () => {
       try {
         const storedReminders = await AsyncStorage.getItem('reminders');
         if (storedReminders) {
-          setReminders(JSON.parse(storedReminders));
+          const parsedReminders = JSON.parse(storedReminders);
+          setReminders(parsedReminders);
+
+          const reminderMarks = Object.keys(parsedReminders).reduce((acc, date) => {
+            acc[date] = { marked: true, dotColor: '#3E2D5D' };
+            return acc;
+          }, {});
+
+          setMarkedDates((prev) => ({
+            ...prev,
+            ...reminderMarks,
+          }));
         }
       } catch (error) {
         console.error('Erro ao carregar lembretes:', error);
@@ -39,6 +58,11 @@ const Reminders = () => {
       return;
     }
 
+    if (selectedDate < currentDate) {
+      Alert.alert('Erro', 'Não é possível criar lembretes para dias passados.');
+      return;
+    }
+
     const newReminders = {
       ...reminders,
       [selectedDate]: [...(reminders[selectedDate] || []), reminderText.trim()],
@@ -47,6 +71,16 @@ const Reminders = () => {
     setReminders(newReminders);
     saveReminders(newReminders);
     setReminderText('');
+
+    setMarkedDates((prev) => ({
+      ...prev,
+      [selectedDate]: {
+        selected: true,
+        selectedColor: '#3E2D5D',
+        marked: true,
+        dotColor: '#3E2D5D',
+      },
+    }));
   };
 
   const removeReminder = (date, index) => {
@@ -54,6 +88,9 @@ const Reminders = () => {
     newReminders[date].splice(index, 1);
     if (newReminders[date].length === 0) {
       delete newReminders[date];
+      const newMarkedDates = { ...markedDates };
+      delete newMarkedDates[date];
+      setMarkedDates(newMarkedDates);
     }
     setReminders(newReminders);
     saveReminders(newReminders);
@@ -68,18 +105,38 @@ const Reminders = () => {
     </View>
   );
 
+  const handleDayPress = (day) => {
+    const newDate = day.dateString;
+    setSelectedDate(newDate);
+
+    setMarkedDates((prev) => {
+      const updatedMarks = Object.keys(prev).reduce((acc, date) => {
+        if (reminders[date]) {
+          acc[date] = {
+            marked: true,
+            dotColor: '#3E2D5D',
+          };
+        }
+        return acc;
+      }, {});
+
+      updatedMarks[newDate] = {
+        selected: true,
+        selectedColor: '#3E2D5D',
+        marked: reminders[newDate]?.length > 0 ? true : false,
+        dotColor: reminders[newDate]?.length > 0 ? '#3E2D5D' : undefined,
+      };
+
+      return updatedMarks;
+    });
+  };
+
   return (
     <View style={styles.remindersContainer}>
       <Text style={styles.sectionTitle}>Lembretes</Text>
       <Calendar
-        onDayPress={(day) => setSelectedDate(day.dateString)}
-        markedDates={{
-          [selectedDate]: { selected: true, selectedColor: '#3E2D5D' },
-          ...Object.keys(reminders).reduce((acc, date) => {
-            acc[date] = { marked: true, dotColor: '#3E2D5D' };
-            return acc;
-          }, {}),
-        }}
+        onDayPress={handleDayPress}
+        markedDates={markedDates}
         theme={{
           selectedDayBackgroundColor: '#3E2D5D',
           todayTextColor: '#3E2D5D',
@@ -95,7 +152,7 @@ const Reminders = () => {
           onChangeText={setReminderText}
         />
         <TouchableOpacity style={styles.addButton} onPress={addReminder}>
-          <MaterialIcons name="add" size={24} color="##3E2D5D" />
+          <MaterialIcons name="add" size={24} color="#3E2D5D" />
         </TouchableOpacity>
       </View>
       {selectedDate && reminders[selectedDate] && (
