@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     color: '#28a745', // Verde para resultados positivos
     textAlign: 'center',
   },
-  buttonContainer: {
+  buttonCalculateContainer: {
     marginVertical: 10,
     width: '100%',
     maxWidth: 300, // Limita a largura no web
@@ -56,19 +56,28 @@ const styles = StyleSheet.create({
     width: '100%', // Largura responsiva
     alignSelf: 'center',
   },
-  buttonHome: {
-    backgroundColor: '#2196F3',  // Cor de fundo azul
-    padding: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginVertical: 10,
-    width: '60%', // Largura responsiva
-    alignSelf: 'center',
+  icon: {
+    color:'white',
+    marginHorizontal:25,
+    marginVertical:20,
   },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent:'center',
+    padding: 15,
+    width: '100%',
+    backgroundColor:'#17153B',
+    maxWidth: 300, // Limita a largura no web
+    padding: 10,
+    width: '100%',
+    backgroundColor:'#17153B',
+    gap:15,
+    borderRadius:50,
+  },
+  buttonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

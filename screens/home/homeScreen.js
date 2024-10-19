@@ -36,29 +36,36 @@ export default function HomeScreen({ navigation }) {
           <Carteira/>
         </View>
 
+        <Reminders />
+        
         <View style={styles.buttonContainer}>
-          <TouchableOpacity 
-            style={[styles.button, styles.emergencyButton]}
-            onPress={() => navigation.navigate('Reserva de Emergência')}
+        <TouchableOpacity 
+           
+            onPress={() => navigation.navigate('Carteira')}
           >
             <View style={styles.buttonContent}>
-              <Text style={styles.buttonText}>Acessar Reserva de Emergência</Text>
-              <MaterialIcons name='emergency' size={24} color={'black'} style={styles.icon}/>
+              <Entypo name="wallet" size={24} style={styles.icon}/>
             </View>
           </TouchableOpacity>
           
           <TouchableOpacity 
-            style={[styles.button, styles.financialButton]}
+           
+            onPress={() => navigation.navigate('Reserva de Emergência')}
+          >
+            <View style={styles.buttonContent}>
+              <MaterialIcons name='emergency' size={24} style={styles.icon}/>
+            </View>
+          </TouchableOpacity>
+          
+          <TouchableOpacity 
+           
             onPress={() => navigation.navigate('Financeiro')}
           >
             <View style={styles.buttonContent}>
-              <Text style={styles.buttonText}>Financeiro</Text>
-              <MaterialCommunityIcons name='finance' size={24} color={'black'} style={styles.icon}/>
+              <MaterialCommunityIcons name='finance' size={24} style={styles.icon}/>
             </View>
           </TouchableOpacity>
         </View>
-
-        <Reminders />
         
         <LogoutModal 
           visible={modalVisible}
