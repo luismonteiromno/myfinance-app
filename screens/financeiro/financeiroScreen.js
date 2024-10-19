@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, TextInput, Button, Picker, ScrollView } from 'react-native';
+import { Text, View, TextInput, Button, Picker, ScrollView, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles';
+import { Entypo, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons/';
 
 export default function FinanceiroScreen({ navigation }) {
   const [salario, setSalario] = useState('');
@@ -150,21 +151,34 @@ export default function FinanceiroScreen({ navigation }) {
         <Text style={styles.result}>Receita Total para {months[selectedMonth]}: R$ {lucroTotal.toFixed(2)}</Text>
       )}
 
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Ver Carteira"
-          onPress={() => navigation.navigate('Carteira', { saldoTotal: lucroTotal, totalDespesas: despesasTotal })}
-          color="#28a745"
-        />
-      </View>
-
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Voltar para Home"
-          onPress={() => navigation.navigate('Home')}
-          color="#6c757d"
-        />
-      </View>
+<View style={styles.buttonContainer}>
+        <TouchableOpacity 
+           
+            onPress={() => navigation.navigate('Home')}
+          >
+            <View style={styles.buttonContent}>
+              <Entypo name="menu" size={24} style={styles.icon}/>
+            </View>
+          </TouchableOpacity>
+          
+          <TouchableOpacity 
+           
+            onPress={() => navigation.navigate('Reserva de Emergência')}
+          >
+            <View style={styles.buttonContent}>
+              <MaterialIcons name='emergency' size={24} style={styles.icon}/>
+            </View>
+          </TouchableOpacity>
+          
+          <TouchableOpacity 
+           
+            onPress={() => navigation.navigate('Carteira')}
+          >
+            <View style={styles.buttonContent}>
+              <MaterialCommunityIcons name='wallet' size={24} style={styles.icon}/>
+            </View>
+          </TouchableOpacity>
+        </View>
     </ScrollView>
   );
 }

@@ -14,14 +14,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  buttonText: {
-    fontSize: 16,
-    color: '#fff',
-    marginRight: 8,
-  },
-  icon: {
-    marginLeft: 8,
-  },
   welcomeText: {
     fontSize: 24,
     color: '#ffffff',
@@ -35,7 +27,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   expenseContainer: {
-
+    
     padding: 20,
     marginBottom: 4,
     width: '100%',
@@ -44,7 +36,7 @@ const styles = StyleSheet.create({
     borderBottomColor:'rgba(200, 172, 214, 1)',
   },
   expenseContainerC: {
-  
+    
     padding: 20,
     marginBottom: 4,
     width: '100%',
@@ -67,27 +59,26 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFB6C1',
   },
+
+  icon: {
+    color:'white',
+    marginHorizontal:25,
+    marginVertical:20,
+  },
   buttonContainer: {
-    marginVertical: 16,
-    width: '100%',
-    maxWidth: 600, // Limita a largura no web
-  },
-  button: {
+    flexDirection: 'row',
+    justifyContent:'center',
     padding: 15,
-    borderRadius: 10,
-    marginVertical: 5,
     width: '100%',
-    alignItems: 'center', // Alinha o texto e o ícone no centro
+    backgroundColor:'#17153B',
+    maxWidth: 300, // Limita a largura no web
+    padding: 10,
+    width: '100%',
+    backgroundColor:'#17153B',
+    gap:15,
+    borderRadius:50,
   },
-  walletButton: {
-    backgroundColor: '#702963',
-  },
-  emergencyButton: {
-    backgroundColor: '#9F2B68',
-  },
-  financialButton: {
-    backgroundColor: '#AA336A',
-  },
+
   calendarContainer: {
     backgroundColor: '#3E2D5D',
     borderRadius: 10,
@@ -120,17 +111,15 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     content: {
-      padding: 40,
+      
     },
     buttonContainer: {
       flexDirection: 'row', // Exibe os botões lado a lado no web
-      justifyContent: 'space-between',
-      flexWrap: 'wrap', // Permite que os botões quebrem linha se necessário
+      
+     
     },
-    button: {
-      width: '48%', // Ajusta a largura dos botões no web
-      marginVertical: 10,
-    },
+ 
+    
   },
 });
 
