@@ -12,7 +12,7 @@ export default function ReservaScreen({ navigation }) {
       <View style={styles.buttonContainer}>
         <TouchableOpacity 
            
-            onPress={() => navigation.navigate('Carteira')}
+            onPress={() => navigation.navigate('historico')}
           >
             <View style={styles.buttonContent}>
               <Entypo name="wallet" size={24} style={styles.icon}/>

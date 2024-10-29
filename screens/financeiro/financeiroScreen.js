@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { Entypo, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons/';
 import { Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import styles from './styles';
-import { Entypo, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons/';
+import Navbar from '../../components/navBar/navBarComponent';
+import React, { useState, useEffect } from 'react';
+import styles from './styles';  
 
 export default function FinanceiroScreen({ navigation }) {
   const [salario, setSalario] = useState('');
@@ -73,6 +74,9 @@ export default function FinanceiroScreen({ navigation }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <View>
+      <Navbar/>
+      </View>
       <Text style={styles.title}>Financeiro</Text>
 
       <Text style={styles.label}>Salário:</Text>
@@ -140,7 +144,7 @@ export default function FinanceiroScreen({ navigation }) {
 <View style={styles.buttonContainer}>
         <TouchableOpacity 
            
-            onPress={() => navigation.navigate('Carteira')}
+            onPress={() => navigation.navigate('historico')}
           >
             <View style={styles.buttonContent}>
               <Entypo name="wallet" size={24} style={styles.icon}/>

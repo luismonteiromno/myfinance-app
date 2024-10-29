@@ -8,6 +8,7 @@ import HomeScreen from './screens/home/homeScreen.js';
 import FinanceiroScreen from './screens/financeiro/financeiroScreen.js';
 import ReservaScreen from './screens/reservaDeEmergencia/reservaDeEmergenciaScreen.js';
 import LogoutScreen from './screens/logout/logoutScreen.js';
+import HistoricoScreen from './screens/historico/historicoScreen.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -57,6 +58,11 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen 
+          name="historico" 
+          component={HistoricoScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
           name="Cadastro" 
           component={CadastroScreen}
           options={{ headerShown: false }}
@@ -71,6 +77,7 @@ export default function App() {
           component={FinanceiroScreen}
           options={{ headerShown: false }}
         />
+        
         <Stack.Screen 
           name="Reserva de Emergência" 
           component={ReservaScreen}
