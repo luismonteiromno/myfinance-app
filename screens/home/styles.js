@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     width: '100%',
     maxWidth: 600, // Limita a largura no web
-    borderBottomWidth:'0.1rem',
+//    borderBottomWidth:'0.1rem',
     borderBottomColor:'rgba(200, 172, 214, 1)',
   },
   expenseContainerC: {
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     width: '100%',
     maxWidth: 600, // Limita a largura no web
-    borderBottomWidth:'0.1rem',
+//    borderBottomWidth:'0.1rem',
     borderBottomColor:'rgba(200, 172, 214, 1)',
   },
   expenseLabel: {
@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: '100%',
   },
+  /*
   '@media (min-width: 768px)': { // Aplica estilos diferentes para telas maiores (web)
     container: {
       alignItems: 'center', // Centraliza o container no web
@@ -121,6 +122,7 @@ const styles = StyleSheet.create({
  
     
   },
+  */
 });
 
 export default styles;

@@ -2,11 +2,12 @@ import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons/';
 import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import Navbar from '../../components/navBar/navBarComponent';
 import styles from '../historico/styles';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HistoricoScreen({navigation}){
     
     return ( 
-     <View style={styles.container}>
+     <SafeAreaView style={styles.container}>
         <Navbar/>
         <ScrollView>
 
@@ -41,6 +42,6 @@ export default function HistoricoScreen({navigation}){
 
         </View>
         </ScrollView>
-     </View>
+     </SafeAreaView>
     );
 }

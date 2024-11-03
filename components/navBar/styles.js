@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   navbar: {
     height: 60,
     backgroundColor: '#3E2D5D',
-    borderRadius: '12px',
+    borderRadius: 12,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,

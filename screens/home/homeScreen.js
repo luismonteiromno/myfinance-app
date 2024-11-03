@@ -7,6 +7,7 @@ import Navbar from '../../components/navBar/navBarComponent';
 import Reminders from '../../components/reminder/reminderComponent';
 import LogoutModal from '../../components/logoutModal/logoutModalComponent';
 import styles from './styles';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HomeScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -26,7 +27,7 @@ export default function HomeScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Navbar onLogout={handleLogout} />
       <ScrollView contentContainerStyle={styles.content}>
         
@@ -39,7 +40,7 @@ export default function HomeScreen({ navigation }) {
         <Reminders />
         
         <View style={styles.buttonContainer}>
-        <TouchableOpacity 
+          <TouchableOpacity 
            
             onPress={() => navigation.navigate('historico')}
           >
@@ -74,6 +75,6 @@ export default function HomeScreen({ navigation }) {
         /> 
 
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
