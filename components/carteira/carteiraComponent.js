@@ -18,9 +18,6 @@ const Carteira = React.memo(({ setTotalDespesas, setSaldoTotal }) => { // Adicio
 
         setSaldoTotalLocal(lucro);
         setTotalDespesasLocal(despesas);
-
-        setSaldoTotal(lucro); // Atualiza o saldo no HomeScreen
-        setTotalDespesas(despesas); // Atualiza as despesas no HomeScreen
       } catch (error) {
         console.log('Erro ao buscar os dados:', error);
       }
