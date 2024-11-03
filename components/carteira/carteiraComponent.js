@@ -3,24 +3,24 @@ import { Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles';
 
-const Carteira = ({ setTotalDespesas, setLimiteDespesas }) => {
-  const [saldoTotal, setSaldoTotal] = useState(0);
+const Carteira = React.memo(({ setTotalDespesas, setSaldoTotal }) => { // Adicione setSaldoTotal
+  const [saldoTotal, setSaldoTotalLocal] = useState(0);
   const [totalDespesas, setTotalDespesasLocal] = useState(0);
-  
+
   useEffect(() => {
     const fetchDados = async () => {
       try {
         const storedLucroTotal = await AsyncStorage.getItem('lucroTotal');
-        const storedTotalDespesas = await AsyncStorage.getItem('despesasTotal');
+        const storedTotalDespesas = await AsyncStorage.getItem('despesasTotalCarteira');
 
-        if (storedLucroTotal !== null) {
-          setSaldoTotal(parseFloat(storedLucroTotal));
-        }
-        if (storedTotalDespesas !== null) {
-          const total = parseFloat(storedTotalDespesas);
-          setTotalDespesasLocal(total);
-          setTotalDespesas(total); // Passa para o componente pai
-        }
+        const lucro = storedLucroTotal !== null ? parseFloat(storedLucroTotal) : 0;
+        const despesas = storedTotalDespesas !== null ? parseFloat(storedTotalDespesas) : 0;
+
+        setSaldoTotalLocal(lucro);
+        setTotalDespesasLocal(despesas);
+
+        setSaldoTotal(lucro); // Atualiza o saldo no HomeScreen
+        setTotalDespesas(despesas); // Atualiza as despesas no HomeScreen
       } catch (error) {
         console.log('Erro ao buscar os dados:', error);
       }
@@ -35,8 +35,8 @@ const Carteira = ({ setTotalDespesas, setLimiteDespesas }) => {
       <Text style={styles.expenseValue}>{`R$ ${saldoTotal.toFixed(2)}`}</Text>
       <Text style={styles.expenseLabel}>Total das Despesas:</Text>
       <Text style={styles.expenseValue}>{`R$ ${totalDespesas.toFixed(2)}`}</Text>
-  </View>
+    </View>
   );
-};
+});
 
 export default Carteira;
