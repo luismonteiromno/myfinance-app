@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: '#2C1A3C', // Fundo roxo escuro
+    backgroundColor: '#2C1A3C',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
@@ -12,54 +12,67 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#FFB6C1', // Rosa claro para o título
+    color: '#FFB6C1',
   },
   label: {
-    fontSize: 18,
+    fontSize: 16,
     marginVertical: 8,
-    color: '#d3d3d3',
+    color: '#F1E4E8',
   },
   input: {
-    height: 40,
-    borderColor: '#9F2B68', // Bordas roxo escuro
+    height: 50,
+    borderColor: '#7A3E9D',
     borderWidth: 1,
-    marginBottom: 12,
+    borderRadius: 12,
     paddingHorizontal: 10,
-    borderRadius: 10, // Bordas arredondadas
-    backgroundColor: '#3E2D5D', // Fundo roxo intermediário
-    color: '#fff', // Texto branco
+    backgroundColor: '#44335B',
+    color: '#F1E4E8',
     width: '100%',
-    maxWidth: 300, // Largura máxima do campo de texto
+    maxWidth: 300,
+    marginBottom: 10,
   },
   errorText: {
     color: '#dc3545',
     marginBottom: 10,
     textAlign: 'center',
   },
-  result: {
+  resultPositive: {
     fontSize: 20,
     marginVertical: 15,
-    color: '#28a745', // Verde para resultados positivos
+    color: '#28a745',
+    textAlign: 'center',
+  },
+  resultNegative: {
+    fontSize: 20,
+    marginVertical: 15,
+    color: '#ff3355',
     textAlign: 'center',
   },
   buttonCalculateContainer: {
     marginVertical: 10,
+  },
+  buttonContainer: {
     width: '100%',
-    maxWidth: 300, // Limita a largura no web
+    maxWidth: 300,
   },
   buttonCalculate: {
-    backgroundColor: '#4CAF50',  // Cor de fundo verde
-    padding: 10,
-    borderRadius: 5,
+    backgroundColor: '#4CAF50',
+    paddingVertical: 15,
+    borderRadius: 8,
     alignItems: 'center',
     marginVertical: 10,
-    width: '100%', // Largura responsiva
-    alignSelf: 'center',
   },
   icon: {
     color:'white',
     marginHorizontal:25,
     marginVertical:20,
+  },
+  buttonHome: {
+    backgroundColor: '#2196F3',
+    paddingVertical: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginVertical: 10,
   },
   buttonContainer: {
     flexDirection: 'row',

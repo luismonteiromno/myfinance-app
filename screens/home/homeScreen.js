@@ -11,6 +11,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HomeScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
+  const [saldoTotal, setSaldoTotal] = useState(0); // Estado para saldo
+  const [totalDespesas, setTotalDespesas] = useState(0); // Estado para despesas
 
   const handleLogout = () => {
     setModalVisible(true);
@@ -34,7 +36,10 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.expenseContainer}>
           <Text style={styles.welcomeText}>Bem-vindo ao app MyFinance!</Text>
           <Text style={styles.description}>Controle seus gastos e ganhos!</Text>
-          <Carteira/>
+          <Carteira 
+            setTotalDespesas={setTotalDespesas} 
+            setSaldoTotal={setSaldoTotal} // Passa a função para atualizar o saldo
+          />
         </View>
 
         <Reminders />

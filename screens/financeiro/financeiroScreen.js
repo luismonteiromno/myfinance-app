@@ -1,9 +1,12 @@
 import { Entypo, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons/';
-import { Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Navbar from '../../components/navBar/navBarComponent';
 import React, { useState, useEffect } from 'react';
-import styles from './styles';  
+import { Text, View, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../../services/firebase';
+import CustomModal from '../../components/modalMessage/modalMessage';
+import styles from './styles';
 
 export default function FinanceiroScreen({ navigation }) {
   const [salario, setSalario] = useState('');
@@ -12,8 +15,18 @@ export default function FinanceiroScreen({ navigation }) {
   const [outrasRendas, setOutrasRendas] = useState('');
   const [despesas, setDespesas] = useState('');
   const [lucroTotal, setLucroTotal] = useState(null);
-  const [despesasTotal, setDespesasTotal] = useState(0);
+  const [despesasTotalCarteira, setDespesasTotalCarteira] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+  const [modalTitle, setModalTitle] = useState('');
+
+  const showModal = (title, message) => {
+    setModalTitle(title);
+    setModalMessage(message);
+    setModalVisible(true);
+  };
 
   useEffect(() => {
     const loadValues = async () => {
@@ -44,26 +57,39 @@ export default function FinanceiroScreen({ navigation }) {
       setErrorMessage('Por favor, preencha todos os campos.');
       return;
     }
-
-    setErrorMessage(''); // Limpa a mensagem de erro se tudo estiver preenchido
-
+  
+    setErrorMessage('');
+  
     const salarioNum = parseFloat(salario) || 0;
     const educacaoNum = parseFloat(educacao) || 0;
     const rendaFixaNum = parseFloat(rendaFixa) || 0;
     const outrasRendasNum = parseFloat(outrasRendas) || 0;
     const despesasNum = parseFloat(despesas) || 0;
-
+  
     const despesasTotal = educacaoNum + despesasNum;
     const lucrosTotal = (salarioNum + rendaFixaNum + outrasRendasNum) - despesasTotal;
-
+  
     setLucroTotal(lucrosTotal);
-    setDespesasTotal(despesasTotal);
+    setDespesasTotalCarteira(despesasTotal);
 
+    await AsyncStorage.setItem('lucroTotal', lucrosTotal.toString());
+    await AsyncStorage.setItem('despesasTotalCarteira', despesasTotal.toString());
+  
     try {
-      await AsyncStorage.setItem('lucroTotal', lucrosTotal.toString());
-      await AsyncStorage.setItem('despesasTotal', despesasTotal.toString());
+      await addDoc(collection(db, 'financeiro'), {
+        salario: salarioNum,
+        educacao: educacaoNum,
+        rendaFixa: rendaFixaNum,
+        outrasRendas: outrasRendasNum,
+        despesas: despesasNum,
+        lucroTotal: lucrosTotal,
+        despesasTotal: despesasTotal,
+      });
+      console.log("Dados salvos no Firestore");
+      showModal('Sucesso', 'Dados salvos com sucesso!');
     } catch (error) {
-      console.log("Erro ao salvar", error);
+      console.log("Erro ao salvar no Firestore", error);
+      showModal('Erro ao salvar os dados!')
     }
   };
 
@@ -138,7 +164,9 @@ export default function FinanceiroScreen({ navigation }) {
       </View>
 
       {lucroTotal !== null && (
-        <Text style={styles.result}>Receita Total: R$ {lucroTotal.toFixed(2)}</Text>
+        <>
+          <Text style={lucroTotal > 0 ? styles.resultPositive : styles.resultNegative}>Receita Total: R$ {lucroTotal.toFixed(2)}</Text>
+        </>
       )}
 
 <View style={styles.buttonContainer}>
