@@ -4,7 +4,13 @@ const styles = StyleSheet.create ({
     container: {
         flex: 1,
         backgroundColor: 'rgba(46, 35, 108, 1)', // Fundo roxo
+        
+
         },
+    conteudo:{
+        display:'flex',
+        
+    },
     icon: {
         color:'white',
         marginHorizontal:25,
@@ -24,5 +30,42 @@ const styles = StyleSheet.create ({
         gap:15,
         borderRadius:50,
     },
+      header: {
+        color:'#f1f1f1',
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginVertical: 20,
+        textAlign: 'center',
+      },
+      transactionContainer: {
+        marginBottom: 10,
+        padding: 2,
+      },
+      date: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginBottom: 5,
+        color: '#f1f1f1',
+      },
+      transaction: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 15,
+        backgroundColor: '#fff',
+        borderRadius: 8,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 1,
+        elevation: 2,
+      },
+      description: {
+        fontSize: 16,
+        color: '#333',
+      },
+      amount: {
+        fontSize: 16,
+        fontWeight: 'bold',
+      },
 });
 export default styles;
