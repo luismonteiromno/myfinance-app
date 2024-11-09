@@ -7,6 +7,7 @@ import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../services/firebase';
 import CustomModal from '../../components/modalMessage/modalMessage';
 import styles from './styles';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function FinanceiroScreen({ navigation }) {
   const [salario, setSalario] = useState('');
@@ -99,104 +100,96 @@ export default function FinanceiroScreen({ navigation }) {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View>
+    <SafeAreaView style={styles.safeContainer}>
       <Navbar/>
-      </View>
-      <Text style={styles.title}>Financeiro</Text>
-
-      <Text style={styles.label}>Salário:</Text>
-      <TextInput
-        style={styles.input}
-        keyboardType="numeric"
-        placeholder="Seu salário"
-        value={salario}
-        onChangeText={(value) => handleChange(setSalario, 'salario', value)}
-      />
-
-      <Text style={styles.label}>Gastos com Educação:</Text>
-      <TextInput
-        style={styles.input}
-        keyboardType="numeric"
-        placeholder="Insira os gastos com educação"
-        value={educacao}
-        onChangeText={(value) => handleChange(setEducacao, 'educacao', value)}
-      />
-
-      <Text style={styles.label}>Ganhos de Renda Fixa:</Text>
-      <TextInput
-        style={styles.input}
-        keyboardType="numeric"
-        placeholder="Insira a renda fixa"
-        value={rendaFixa}
-        onChangeText={(value) => handleChange(setRendaFixa, 'rendaFixa', value)}
-      />
-
-      <Text style={styles.label}>Outras Rendas:</Text>
-      <TextInput
-        style={styles.input}
-        keyboardType="numeric"
-        placeholder="Insira outras rendas"
-        value={outrasRendas}
-        onChangeText={(value) => handleChange(setOutrasRendas, 'outrasRendas', value)}
-      />
-
-      <Text style={styles.label}>Despesas:</Text>
-      <TextInput
-        style={styles.input}
-        keyboardType="numeric"
-        placeholder="Insira as despesas"
-        value={despesas}
-        onChangeText={(value) => handleChange(setDespesas, 'despesas', value)}
-      />
-
-      {errorMessage !== '' && (
-        <Text style={styles.errorText}>{errorMessage}</Text>
-      )}
-
-      <View style={styles.buttonCalculateContainer}>
-        <TouchableOpacity
-          onPress={calcularReceita}
-          style={styles.buttonCalculate}
-        >
-          <Text style={styles.buttonText}>Calcular Receita</Text>
-        </TouchableOpacity>
-      </View>
-
-      {lucroTotal !== null && (
-        <>
-          <Text style={lucroTotal > 0 ? styles.resultPositive : styles.resultNegative}>Receita Total: R$ {lucroTotal.toFixed(2)}</Text>
-        </>
-      )}
-
-<View style={styles.buttonContainer}>
-        <TouchableOpacity 
-           
-            onPress={() => navigation.navigate('historico')}
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.title}>Financeiro</Text>
+        <Text style={styles.label}>Salário:</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          placeholder="Seu salário"
+          value={salario}
+          onChangeText={(value) => handleChange(setSalario, 'salario', value)}
+        />
+        <Text style={styles.label}>Gastos com Educação:</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          placeholder="Insira os gastos com educação"
+          value={educacao}
+          onChangeText={(value) => handleChange(setEducacao, 'educacao', value)}
+        />
+        <Text style={styles.label}>Ganhos de Renda Fixa:</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          placeholder="Insira a renda fixa"
+          value={rendaFixa}
+          onChangeText={(value) => handleChange(setRendaFixa, 'rendaFixa', value)}
+        />
+        <Text style={styles.label}>Outras Rendas:</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          placeholder="Insira outras rendas"
+          value={outrasRendas}
+          onChangeText={(value) => handleChange(setOutrasRendas, 'outrasRendas', value)}
+        />
+        <Text style={styles.label}>Despesas:</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          placeholder="Insira as despesas"
+          value={despesas}
+          onChangeText={(value) => handleChange(setDespesas, 'despesas', value)}
+        />
+        {errorMessage !== '' && (
+          <Text style={styles.errorText}>{errorMessage}</Text>
+        )}
+        <View style={styles.buttonCalculateContainer}>
+          <TouchableOpacity
+            onPress={calcularReceita}
+            style={styles.buttonCalculate}
           >
-            <View style={styles.buttonContent}>
-              <Entypo name="wallet" size={24} style={styles.icon}/>
-            </View>
-          </TouchableOpacity>
-          
-          <TouchableOpacity 
-           
-            onPress={() => navigation.navigate('Reserva de Emergência')}
-          >
-            <View style={styles.buttonContent}>
-              <MaterialIcons name='emergency' size={24} style={styles.icon}/>
-            </View>
-          </TouchableOpacity>
-          
-          <TouchableOpacity 
-           
-            onPress={() => navigation.navigate('Home')}
-          >
-            <View style={styles.buttonContent}>
-              <MaterialCommunityIcons name='menu' size={24} style={styles.icon}/>
-            </View>
+            <Text style={styles.buttonText}>Calcular Receita</Text>
           </TouchableOpacity>
         </View>
-    </ScrollView>
+        {lucroTotal !== null && (
+          <>
+            <Text style={lucroTotal > 0 ? styles.resultPositive : styles.resultNegative}>Receita Total: R$ {lucroTotal.toFixed(2)}</Text>
+          </>
+        )}
+      
+      <View style={styles.buttonContainer}>
+          <TouchableOpacity
+      
+              onPress={() => navigation.navigate('historico')}
+            >
+              <View style={styles.buttonContent}>
+                <Entypo name="wallet" size={24} style={styles.icon}/>
+              </View>
+            </TouchableOpacity>
+      
+            <TouchableOpacity
+      
+              onPress={() => navigation.navigate('Reserva de Emergência')}
+            >
+              <View style={styles.buttonContent}>
+                <MaterialIcons name='emergency' size={24} style={styles.icon}/>
+              </View>
+            </TouchableOpacity>
+      
+            <TouchableOpacity
+      
+              onPress={() => navigation.navigate('Home')}
+            >
+              <View style={styles.buttonContent}>
+                <MaterialCommunityIcons name='menu' size={24} style={styles.icon}/>
+              </View>
+            </TouchableOpacity>
+          </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }

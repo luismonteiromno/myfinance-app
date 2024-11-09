@@ -3,10 +3,14 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: '#2C1A3C',
+    backgroundColor: 'rgba(46, 35, 108, 1)',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
+  },
+  safeContainer: {
+    backgroundColor: 'rgba(46, 35, 108, 1)',
+    height: '100%',
   },
   title: {
     fontSize: 28,
@@ -50,6 +54,7 @@ const styles = StyleSheet.create({
   },
   buttonCalculateContainer: {
     marginVertical: 10,
+    width: 200,
   },
   buttonContainer: {
     width: '100%',
