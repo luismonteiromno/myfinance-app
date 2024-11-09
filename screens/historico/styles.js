@@ -1,16 +1,16 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create ({
+    main:{
+      
+        backgroundColor: 'rgba(46, 35, 108, 1)', 
+    },
     container: {
-        flex: 1,
-        backgroundColor: 'rgba(46, 35, 108, 1)', // Fundo roxo
-        
+         
+        display:'flex',
+        alignItems:'center',
 
         },
-    conteudo:{
-        display:'flex',
-        
-    },
     icon: {
         color:'white',
         marginHorizontal:25,
@@ -39,7 +39,8 @@ const styles = StyleSheet.create ({
       },
       transactionContainer: {
         marginBottom: 10,
-        padding: 2,
+        padding: 10,
+        
       },
       date: {
         fontSize: 16,
