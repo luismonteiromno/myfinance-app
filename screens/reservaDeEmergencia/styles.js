@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   input: {
     textAlign: 'center', // Alinha o texto no centro como os outros
     // color: '#f4a',       // Cor do texto, se necessário
-    fontSize: 36,        // Tamanho de fonte para se adequar ao estilo
+    fontSize: 30,        // Tamanho de fonte para se adequar ao estilo
   },
   inputModal: {
     width: 300,
