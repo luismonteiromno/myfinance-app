@@ -6,6 +6,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../services/firebase';
 import CustomModal from '../../components/modalMessage/modalMessage';
+import LogoutModal from '../../components/logoutModal/logoutModalComponent';
+
 import styles from './styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -19,9 +21,24 @@ export default function FinanceiroScreen({ navigation }) {
   const [despesasTotalCarteira, setDespesasTotalCarteira] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
 
+  const [modalLogoutVisible, setModalLogoutVisible] = useState(false);  // Controla o modal de logout
   const [modalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const [modalTitle, setModalTitle] = useState('');
+
+  const handleLogout = () => {
+    setModalLogoutVisible(true); // Exibe o modal de logout
+  };
+
+  const confirmLogout = async () => {
+    setModalLogoutVisible(false); // Fecha o modal de logout
+    try {
+      await AsyncStorage.removeItem('isLoggedIn');
+      navigation.navigate('Login');
+    } catch (error) {
+      console.error('Erro ao fazer logout:', error);
+    }
+  };
 
   const showModal = (title, message) => {
     setModalTitle(title);
@@ -101,7 +118,7 @@ export default function FinanceiroScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.safeContainer}>
-      <Navbar/>
+      <Navbar onLogout={handleLogout} />
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.title}>Financeiro</Text>
         <Text style={styles.label}>Salário:</Text>
@@ -112,7 +129,7 @@ export default function FinanceiroScreen({ navigation }) {
           value={salario}
           onChangeText={(value) => handleChange(setSalario, 'salario', value)}
         />
-        <Text style={styles.label}>Gastos com Educação:</Text>
+        <Text style={styles.label}>Despesas Fixas:</Text>
         <TextInput
           style={styles.input}
           keyboardType="numeric"
@@ -136,7 +153,7 @@ export default function FinanceiroScreen({ navigation }) {
           value={outrasRendas}
           onChangeText={(value) => handleChange(setOutrasRendas, 'outrasRendas', value)}
         />
-        <Text style={styles.label}>Despesas:</Text>
+        <Text style={styles.label}>Despesas secundárias:</Text>
         <TextInput
           style={styles.input}
           keyboardType="numeric"
@@ -161,35 +178,45 @@ export default function FinanceiroScreen({ navigation }) {
           </>
         )}
       
-      <View style={styles.buttonContainer}>
+        <View style={styles.buttonContainer}>
           <TouchableOpacity
-      
-              onPress={() => navigation.navigate('historico')}
-            >
-              <View style={styles.buttonContent}>
-                <Entypo name="wallet" size={24} style={styles.icon}/>
-              </View>
-            </TouchableOpacity>
-      
-            <TouchableOpacity
-      
-              onPress={() => navigation.navigate('Reserva de Emergência')}
-            >
-              <View style={styles.buttonContent}>
-                <MaterialIcons name='emergency' size={24} style={styles.icon}/>
-              </View>
-            </TouchableOpacity>
-      
-            <TouchableOpacity
-      
-              onPress={() => navigation.navigate('Home')}
-            >
-              <View style={styles.buttonContent}>
-                <MaterialCommunityIcons name='menu' size={24} style={styles.icon}/>
-              </View>
-            </TouchableOpacity>
-          </View>
+            onPress={() => navigation.navigate('Home')}
+          >
+            <View style={styles.buttonContent}>
+              <MaterialCommunityIcons name='menu' size={24} style={styles.icon}/>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate('historico')}
+          >
+            <View style={styles.buttonContent}>
+              <Entypo name="wallet" size={24} style={styles.icon}/>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Reserva de Emergência')}
+          >
+            <View style={styles.buttonContent}>
+              <MaterialIcons name='emergency' size={24} style={styles.icon}/>
+            </View>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
+
+      <LogoutModal 
+        visible={modalLogoutVisible}
+        onConfirm={confirmLogout} 
+        onCancel={() => setModalLogoutVisible(false)}
+      />
+
+      <CustomModal
+        title={modalTitle}
+        message={modalMessage}
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+      />
     </SafeAreaView>
   );
 }
