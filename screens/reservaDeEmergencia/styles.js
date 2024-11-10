@@ -1,45 +1,53 @@
 import { StyleSheet } from "react-native";
 
+const colors = {
+  primary: '#2E236C',
+  secondary: '#83386e',
+  accent: '#2196F3',
+  textPrimary: '#FFFFFF',
+  textSecondary: '#FFB6C1',
+};
+
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: 'rgba(46, 35, 108, 1)',
+    backgroundColor: colors.primary,
   },
   container: {
     flex: 1,
     alignItems: 'center',
     padding: 20,
   },
-  containerContent:{
-    marginBottom: 24
+  containerContent: {
+    marginBottom: 24,
   },
   image: {
-    width: 'auto',
+    width: '100%',
     height: 240,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
   },
   title: {
-    fontSize: 24,
-    marginLeft: -32,
+    fontSize: 26,
     fontWeight: 'bold',
-    color: '#fff',
-    marginBottom: 16,
+    color: colors.textPrimary,
+    marginVertical: 16,
   },
   textBox: {
-    width: 360,
-    height: 100,
+    width: '100%',
+    maxWidth: 360,
     borderRadius: 16,
     padding: 16,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)'
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
   description: {
-    color: '#fff',
+    color: colors.textPrimary,
     fontSize: 16,
-    marginBottom: 30,
     textAlign: 'left',
   },
   buttonHome: {
-    backgroundColor: '#2196F3',
-    padding: 10,
+    backgroundColor: colors.accent,
+    paddingVertical: 12,
     borderRadius: 5,
     alignItems: 'center',
     marginVertical: 10,
@@ -47,35 +55,98 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   buttonText: {
-    color: '#fff',
+    color: colors.textPrimary,
     fontSize: 16,
     fontWeight: 'bold',
   },
   transfer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'flex-end',
     flexDirection: 'row',
-    gap: 16,
-    marginBottom: 56,
+    justifyContent: 'space-around',
+    marginVertical: 20,
   },
   icon: {
-    color:'white',
-    marginHorizontal:25,
-    marginVertical:20,
+    color: colors.textPrimary,
+    marginHorizontal: 20,
+    marginVertical: 16,
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent:'center',
-    padding: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
     width: '100%',
-    backgroundColor:'#17153B',
-    maxWidth: 300, // Limita a largura no web
+    maxWidth: 300,
     padding: 10,
-    width: '100%',
-    backgroundColor:'#17153B',
-    gap:15,
-    borderRadius:50,
+    backgroundColor: '#17153B',
+    borderRadius: 50,
+    marginTop: 10,
+    gap: 15,
+  },
+  containerModal: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.34)',
+    paddingTop: 50,
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: colors.textPrimary,
+    backgroundColor: colors.secondary,
+    borderRadius: 8,
+    margin: 4,
+    padding: 12,
+    textAlign: 'center',
+  },
+  boxModal: {
+    width: 360,
+    padding: 20,
+    borderRadius: 16,
+    backgroundColor: colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  content: {
+    color: colors.textSecondary,
+    fontSize: 36,
+    fontWeight: 'bold',
+    textAlign: 'left',
+  },
+  buttonModal: {
+    width: 200,
+    height: 50,
+    backgroundColor: '#ac3a8c',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 25,
+    marginVertical: 8,
+  },
+  textModal: {
+    color: colors.textPrimary,
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  input: {
+    textAlign: 'center', // Alinha o texto no centro como os outros
+    // color: '#f4a',       // Cor do texto, se necessário
+    fontSize: 36,        // Tamanho de fonte para se adequar ao estilo
+  },
+  inputModal: {
+    width: 300,
+    height: 50,
+    borderColor: '#9F2B68',
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 10,
+    fontSize: 16,
+    color: colors.textPrimary,
+    marginBottom: 16,
+  },
+  labelModal: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: colors.textPrimary,
+    marginBottom: 8,
   },
 });
 
