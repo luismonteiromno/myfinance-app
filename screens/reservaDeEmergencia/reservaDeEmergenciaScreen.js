@@ -170,22 +170,30 @@ export default function ReservaScreen({ navigation }) {
           </View>
 
           <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('Home')}
+            >
               <View style={styles.buttonContent}>
-                <MaterialCommunityIcons name='menu' size={24} style={styles.icon} />
+                <Entypo name="wallet" size={24} style={styles.icon}/>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('historico')}>
+
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('Reserva de Emergência')}
+            >
               <View style={styles.buttonContent}>
-                <Entypo name="wallet" size={24} style={styles.icon} />
+                <MaterialIcons name='emergency' size={24} style={styles.icon}/>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Financeiro')}>
+
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('Financeiro')}
+            >
               <View style={styles.buttonContent}>
-                <MaterialCommunityIcons name='finance' size={24} style={styles.icon} />
+                <MaterialCommunityIcons name='finance' size={24} style={styles.icon}/>
               </View>
             </TouchableOpacity>
-          </View>
+            </View>
 
           <Modal transparent visible={modalVisible} animationType="fade">
             <View style={styles.containerModal} height={height}>

@@ -118,7 +118,7 @@ export default function FinanceiroScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.safeContainer}>
-      <Navbar onLogout={handleLogout} />
+      {/* <Navbar onLogout={handleLogout} /> */}
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.title}>Financeiro</Text>
         <Text style={styles.label}>Salário:</Text>
@@ -179,19 +179,19 @@ export default function FinanceiroScreen({ navigation }) {
         )}
       
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
+          <TouchableOpacity 
             onPress={() => navigation.navigate('Home')}
           >
             <View style={styles.buttonContent}>
-              <MaterialCommunityIcons name='menu' size={24} style={styles.icon}/>
+              <Entypo name="wallet" size={24} style={styles.icon}/>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => navigation.navigate('historico')}
+          <TouchableOpacity 
+            onPress={() => navigation.navigate('Financeiro')}
           >
             <View style={styles.buttonContent}>
-              <Entypo name="wallet" size={24} style={styles.icon}/>
+              <MaterialCommunityIcons name='finance' size={24} style={styles.icon}/>
             </View>
           </TouchableOpacity>
 

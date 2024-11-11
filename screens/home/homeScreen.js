@@ -68,7 +68,7 @@ export default function HomeScreen({ navigation }) {
         
         <View style={styles.buttonContainer}>
           <TouchableOpacity 
-            onPress={() => navigation.navigate('historico')}
+            onPress={() => navigation.navigate('Home')}
           >
             <View style={styles.buttonContent}>
               <Entypo name="wallet" size={24} style={styles.icon}/>
