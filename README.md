@@ -12,6 +12,6 @@ Para isso este aplicativo foi programado com uma interface intuitiva com telas d
 - Reserva de emergencia
 ```
 # Para rodar execute
-`yarn install / npm install`
+`npm install / npm start`
 
-`yarn start / npm start`
+`yarn install / yarn start`
