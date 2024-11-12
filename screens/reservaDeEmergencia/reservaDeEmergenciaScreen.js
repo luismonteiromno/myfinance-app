@@ -6,6 +6,7 @@ import { db } from '../../services/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { Entypo, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons/';
 import AlertModal from '../../components/modalAlert/modalAlert';
+import { Picker } from '@react-native-picker/picker'; // Importe o Picker
 import styles from './styles';
 
 export default function ReservaScreen({ navigation }) {
@@ -24,6 +25,8 @@ export default function ReservaScreen({ navigation }) {
   const [customModalVisibleAlert, setCustomModalVisibleAlert] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const [modalTitle, setModalTitle] = useState('');
+  const [tempoPlanejadoQuantidade, setTempoPlanejadoQuantidade] = useState(''); // Estado para a quantidade de tempo
+  const [tempoPlanejadoUnidade, setTempoPlanejadoUnidade] = useState('meses'); // Estado para a unidade (meses/anos)
 
   const showModal = (title, message) => {
     setModalTitle(title);
@@ -35,7 +38,7 @@ export default function ReservaScreen({ navigation }) {
     setModalTitle(title);
     setModalMessage(message);
     setCustomModalVisibleAlert(true);
-  }
+  };
 
   useEffect(() => {
     const fetchDados = async () => {
@@ -43,12 +46,16 @@ export default function ReservaScreen({ navigation }) {
         const storedBalance = await AsyncStorage.getItem('lucroTotal');
         const storedBalancePlan = await AsyncStorage.getItem('balancePlan');
         const storedTotalSaved = await AsyncStorage.getItem('totalSaved');
+        const storedTempoPlanejadoQuantidade = await AsyncStorage.getItem('tempoPlanejadoQuantidade') || '';
+        const storedTempoPlanejadoUnidade = await AsyncStorage.getItem('tempoPlanejadoUnidade') || 'meses';
         
         setBalanceData({
           balance: storedBalance ? parseFloat(storedBalance) : 0,
           balancePlan: storedBalancePlan ? parseFloat(storedBalancePlan) : 0,
           totalSaved: storedTotalSaved ? parseFloat(storedTotalSaved) : 0,
         });
+        setTempoPlanejadoQuantidade(storedTempoPlanejadoQuantidade); // Carrega a quantidade de tempo planejado
+        setTempoPlanejadoUnidade(storedTempoPlanejadoUnidade); // Carrega a unidade (meses/anos)
       } catch (error) {
         console.log('Erro ao buscar os dados:', error);
       }
@@ -90,36 +97,31 @@ export default function ReservaScreen({ navigation }) {
         ['lucroTotal', balance.toString()],
         ['balancePlan', balancePlan.toString()],
         ['totalSaved', totalSaved.toString()],
+        ['tempoPlanejadoQuantidade', tempoPlanejadoQuantidade], // Salva a quantidade
+        ['tempoPlanejadoUnidade', tempoPlanejadoUnidade], // Salva a unidade
       ]);
 
+      console.log('Salvando no Firestore...');
       await addDoc(collection(db, 'reserva_de_emergencia'), {
         tipo: transferType,
         saldoAtual: balance,
         saldoPlanejado: balancePlan,
         totalGuardado: totalSaved,
+        tempoPlanejadoQuantidade: tempoPlanejadoQuantidade,
+        tempoPlanejadoUnidade: tempoPlanejadoUnidade,
         data: new Date(),
-      });      
+      });
 
+      // Atualiza o estado após sucesso
       setBalanceData({ balance, balancePlan, totalSaved });
       setModalVisible(false);
       setInput('');
-      if (transferType === 'Resgatar') {
-        console.log('Sucesso!', 'Resgate realizado com sucesso!');
-      } else {
-        console.log('Sucesso!', 'Guardado com sucesso!');
-      }
       setCustomModalVisible(false);
+
+      console.log('Sucesso!', 'Operação realizada com sucesso!');
     } catch (error) {
       console.log(`Erro ao ${transferType.toLowerCase()}:`, error);
     }
-  };
-
-  const updateBalancePlan = async (newBalancePlan) => {
-    setBalanceData((prevData) => ({
-      ...prevData,
-      balancePlan: newBalancePlan,
-    }));
-    await AsyncStorage.setItem('balancePlan', newBalancePlan.toString());
   };
 
   return (
@@ -154,6 +156,27 @@ export default function ReservaScreen({ navigation }) {
                 }));
               }}
             />
+            <Text style={styles.text}>Tempo Planejado:</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginVertical: 12 }}>
+              <TextInput
+                style={[styles.content, styles.input, { width: '9%', marginRight: 10, textAlign: 'center' }]}
+                keyboardType="numeric"
+                value={tempoPlanejadoQuantidade}
+                onChangeText={(value) => setTempoPlanejadoQuantidade(value)}
+              />
+              <Picker
+                selectedValue={tempoPlanejadoUnidade}
+                style={[{ width: '40%' }, styles.picker]}
+                onValueChange={(itemValue) => {
+                  setTempoPlanejadoUnidade(itemValue);
+                  AsyncStorage.setItem('tempoPlanejadoUnidade', itemValue);
+                }}
+              >
+                <Picker.Item label="Meses" value="meses" />
+                <Picker.Item label="Anos" value="anos" />
+              </Picker>
+            </View>
+
             <Text style={styles.text}>Total Guardado R$:</Text>
             <View style={styles.box}>
               <Text style={styles.content}>{balanceData.totalSaved.toFixed(2)}</Text>
@@ -193,7 +216,7 @@ export default function ReservaScreen({ navigation }) {
                 <MaterialCommunityIcons name='finance' size={24} style={styles.icon}/>
               </View>
             </TouchableOpacity>
-            </View>
+          </View>
 
           <Modal transparent visible={modalVisible} animationType="fade">
             <View style={styles.containerModal} height={height}>

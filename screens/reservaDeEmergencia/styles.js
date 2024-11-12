@@ -4,8 +4,13 @@ const colors = {
   primary: '#2E236C',
   secondary: '#83386e',
   accent: '#2196F3',
+  backgroundDark: '#17153B',
+  buttonBackground: '#ac3a8c',
+  borderColor: '#9F2B68',
   textPrimary: '#FFFFFF',
   textSecondary: '#FFB6C1',
+  overlay: 'rgba(0, 0, 0, 0.3)',
+  overlayLight: 'rgba(0, 0, 0, 0.34)',
 };
 
 const styles = StyleSheet.create({
@@ -38,17 +43,17 @@ const styles = StyleSheet.create({
     maxWidth: 360,
     borderRadius: 16,
     padding: 16,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    backgroundColor: colors.overlay,
   },
   description: {
     color: colors.textPrimary,
     fontSize: 16,
     textAlign: 'left',
   },
-  buttonHome: {
+  buttonPrimary: {
     backgroundColor: colors.accent,
     paddingVertical: 12,
-    borderRadius: 5,
+    borderRadius: 8,
     alignItems: 'center',
     marginVertical: 10,
     width: '60%',
@@ -76,7 +81,7 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 300,
     padding: 10,
-    backgroundColor: '#17153B',
+    backgroundColor: colors.backgroundDark,
     borderRadius: 50,
     marginTop: 10,
     gap: 15,
@@ -85,7 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.34)',
+    backgroundColor: colors.overlayLight,
     paddingTop: 50,
   },
   text: {
@@ -115,7 +120,7 @@ const styles = StyleSheet.create({
   buttonModal: {
     width: 200,
     height: 50,
-    backgroundColor: '#ac3a8c',
+    backgroundColor: colors.buttonBackground,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 25,
@@ -127,14 +132,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   input: {
-    textAlign: 'center', // Alinha o texto no centro como os outros
-    // color: '#f4a',       // Cor do texto, se necessário
-    fontSize: 30,        // Tamanho de fonte para se adequar ao estilo
+    textAlign: 'center',
+    fontSize: 30,
+    color: colors.textPrimary,
   },
   inputModal: {
     width: 300,
     height: 50,
-    borderColor: '#9F2B68',
+    borderColor: colors.borderColor,
     borderWidth: 1,
     borderRadius: 8,
     padding: 10,
@@ -147,6 +152,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.textPrimary,
     marginBottom: 8,
+  },
+  picker: {
+    borderWidth: 1,
+    borderColor: colors.secondary,
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    backgroundColor: colors.overlay,
+    color: colors.textPrimary,
+    fontSize: 16,
   },
 });
 
